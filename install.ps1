@@ -34,7 +34,7 @@ if (($argv -contains '--uninstall') -or ($argv -contains '-Uninstall')) {
 if (-not (Get-Command claude -ErrorAction SilentlyContinue)) { Fail 'Claude Code not found' 'install Claude Code (https://docs.claude.com/en/docs/claude-code), then rerun this installer' }
 Say "[ok] Claude Code $((& claude --version) | Select-Object -First 1)"
 if (-not (Get-Command node -ErrorAction SilentlyContinue)) { Fail 'Node.js not found' 'install Node 18+ (https://nodejs.org, or: winget install OpenJS.NodeJS.LTS)' }
-$nodeMajor = [int]((& node -p 'process.versions.node.split(".")[0]') | Select-Object -First 1)
+$nodeMajor = [int]((& node -p "process.versions.node.split('.')[0]") | Select-Object -First 1)
 if ($nodeMajor -lt 18) { Fail "Node $(& node --version) is too old" 'install Node 18+ (https://nodejs.org)' }
 Say "[ok] Node $(& node --version)"
 

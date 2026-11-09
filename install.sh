@@ -109,6 +109,8 @@ run mkdir -p "$BASH_C" "$HOME/.zfunc"
 run cp "$SRC/completions/resbot.bash" "$BASH_C/resbot"
 run cp "$SRC/completions/_resbot" "$HOME/.zfunc/_resbot"
 if [ "$(basename "${SHELL:-sh}")" = zsh ]; then
+  # Literal $fpath must land in .zshrc unexpanded.
+  # shellcheck disable=SC2016
   add_rc 'fpath=(~/.zfunc $fpath); autoload -Uz compinit && compinit'
 fi
 say "✓ shell completions installed"

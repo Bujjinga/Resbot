@@ -1,4 +1,6 @@
 # bash completion for resbot
+# COMPREPLY=( $(compgen ...) ) is the standard completion idiom.
+# shellcheck disable=SC2207
 _resbot() {
   local cur prev cmds
   cur="${COMP_WORDS[COMP_CWORD]}"
