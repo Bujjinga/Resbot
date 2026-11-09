@@ -7,7 +7,7 @@ _resbot() {
     'update:update to the latest version'
     'uninstall:remove the plugin (--purge also removes ~/.resbot)'
     'doctor:check the environment'
-    'graphify:install graphify'
+    'graph:build or query the workspace knowledge graph'
     'version:print version'
     'help:show help'
     'new:create a workspace'

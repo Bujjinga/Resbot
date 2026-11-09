@@ -16,10 +16,9 @@ Optional, but useful:
 
 | What | Why | How to install |
 |---|---|---|
-| Python 3.10+ | needed by the Kaggle CLI and graphify | https://www.python.org |
+| Python 3.10+ | needed by the Kaggle CLI | https://www.python.org |
 | git | the installer clones with git (falls back to a download without it) | https://git-scm.com |
 | Kaggle CLI + API token | fetch notebook snapshots, run outputs and leaderboards without the browser | `pip install kaggle`, then kaggle.com → Settings → API → Create New Token, save the file as `~/.kaggle/kaggle.json` |
-| graphify | builds a knowledge graph of your workspace | `resbot graphify` |
 
 ## Step 2: Install RESBOT
 

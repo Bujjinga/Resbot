@@ -14,7 +14,6 @@ Run `resbot help` for a short version of this page.
 | `resbot uninstall` | removes the plugin, the PATH link and completions. Your workspaces are kept. |
 | `resbot uninstall --purge` | also deletes `~/.resbot` and the update-check cache |
 | `resbot doctor` | checks everything RESBOT needs and prints a fix for each problem |
-| `resbot graphify` | installs [graphify](https://github.com/Graphify-Labs/graphify) and runs `graphify install` |
 | `resbot version` | prints the version |
 
 ## Starting sessions
@@ -47,6 +46,10 @@ resbot open https://www.kaggle.com/code/alice/titanic-eda "beat 0.80 accuracy"
 | `resbot paper <arxiv-id \| doi \| pdf> [--slug s]` | fetches real metadata into `papers/` and adds a BibTeX entry |
 | `resbot export [slug]` | writes `<slug>-export.md`: the whole workspace in one readable file |
 | `resbot export [slug] --zip` | writes `<slug>.zip` of the workspace |
+| `resbot graph build [--slug s]` | builds the workspace knowledge graph: `graph/graph.json` + a short `graph/GRAPH.md` summary |
+| `resbot graph query "<question>"` | e.g. `"which cell defines the folds"`: matching nodes and their connections |
+| `resbot graph path <A> <B>` | how two things connect, e.g. `resbot graph path E3 H1` |
+| `resbot graph explain <X>` | everything about one node, e.g. `cell:07`, `7`, `H2`, `E3` |
 
 Example:
 
@@ -97,3 +100,4 @@ resbot completions pwsh >> $PROFILE                  # PowerShell
 ## Exit codes
 
 `0` success, `1` a required check or command failed, `2` wrong usage (bad arguments, unknown workspace).
+`resbot graph` also uses `3` (name is ambiguous; candidates are listed) and `4` (nothing matches).

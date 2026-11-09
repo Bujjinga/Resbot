@@ -48,8 +48,7 @@ Author and maintainer: **Bujjinga**. License: MIT.
   (`/chrome` inside Claude Code, or start with `claude --chrome`)
 - Node.js 18+ (for the `resbot` CLI and installers)
 - A kaggle.com account, signed in in that Chrome profile
-- Optional: Python 3.10+, `git`, the [Kaggle CLI](https://github.com/Kaggle/kaggle-api) with an API token,
-  [graphify](https://github.com/Graphify-Labs/graphify), a Consensus MCP connection
+- Optional: Python 3.10+, `git`, the [Kaggle CLI](https://github.com/Kaggle/kaggle-api) with an API token, a Consensus MCP connection
 
 Run `resbot doctor` to check all of it.
 
@@ -141,7 +140,7 @@ Inside Claude Code (with Chrome connected):
 | `/resbot:ch7 ablate <cell#>` | One-factor-at-a-time ablation of that experiment |
 | `/resbot:ch7 compare <exp-a> <exp-b>` | mean ± std, paired t-test or bootstrap CI |
 | `/resbot:ch7 report` | `notes/report.md` + `results.csv` + `references.bib` |
-| `/resbot:ch7 graph` | Rebuild / query the graphify graph |
+| `/resbot:ch7 graph` | Build / query the built-in workspace knowledge graph |
 | `/resbot:ch7 status` | Goal, active hypothesis, best result ± std, next cell (no browser) |
 
 From a terminal:
@@ -161,8 +160,8 @@ resbot watch <owner>/<kernel> --every 5m   # notify when a committed run finishe
 | Command | Description |
 |---|---|
 | `install` · `update` · `uninstall [--purge]` · `version` · `help` | setup |
-| `doctor` | checks Claude Code, the plugin, Node, Python 3.10+, git, graphify, Kaggle CLI + token (never printed), Consensus MCP, network reachability of Semantic Scholar / arXiv / Kaggle |
-| `graphify` | installs [graphify](https://github.com/Graphify-Labs/graphify) and runs `graphify install` |
+| `doctor` | checks Claude Code, the plugin, Node, Python 3.10+, git, Kaggle CLI + token (never printed), Consensus MCP, network reachability of Semantic Scholar / arXiv / Kaggle |
+| `graph build\|query\|path\|explain [args] [--slug s]` | built-in knowledge graph of a workspace (cells, hypotheses, experiments, papers, ideas) |
 | `new <slug>` | create `resbot-workspace/<slug>` from templates |
 | `open <kaggle-url> [goal]` · `research "<q>"` · `report [slug]` | start Claude Code with Chrome and the right `/resbot:ch7` args |
 | `paper <arxiv-id\|doi\|pdf> [--slug s]` | fetch metadata into `papers/`, append BibTeX (no Claude needed) |

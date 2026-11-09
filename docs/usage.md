@@ -79,7 +79,9 @@ Only verified citations are included.
 
 ### Graph: `/resbot:ch7 graph`
 
-Rebuilds or queries the graphify knowledge graph of your workspace (if graphify is installed).
+Builds RESBOT's own knowledge graph of your workspace (cells, what each needs, hypotheses, experiments,
+papers, ideas) and uses it to answer "what depends on what" and "what did we already try".
+Nothing extra to install. From a terminal: `resbot graph build`, `resbot graph query "<question>"`.
 
 ### Status: `/resbot:ch7 status`
 

@@ -5,7 +5,7 @@ _resbot() {
   local cur prev cmds
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
-  cmds="install update uninstall doctor graphify version help new open research report paper log ideas status compare export pull output lb watch completions"
+  cmds="install update uninstall doctor graph version help new open research report paper log ideas status compare export pull output lb watch completions"
   if [ "$COMP_CWORD" -eq 1 ]; then
     COMPREPLY=( $(compgen -W "$cmds" -- "$cur") ); return
   fi

@@ -1,22 +1,41 @@
-# Graph (optional, graphify)
+# Graph (built in: `resbot graph`)
 
-Check once: `graphify --version`. If it fails, use Grep over the workspace instead and say so once.
+RESBOT keeps a small knowledge graph of the workspace so you can answer "what depends on what" and
+"what did we already try" without re-reading files. It is built from the workspace's own files by a
+bundled script; nothing to install.
+
+```
+G="${CLAUDE_SKILL_DIR}/scripts/graph.js"
+W=resbot-workspace/<slug>
+```
 
 ## When
 
 - every ~10 cells
 - after a research pass
-- `/resbot:ch7 graph`
+- `/resbot:ch7 graph` (build, then show `graph/GRAPH.md`)
 
-## How
+## Commands
 
-- Build/refresh (no LLM needed): `graphify update resbot-workspace/<slug>`
-  (writes `resbot-workspace/<slug>/graphify-out/graph.json`; add `--force` after deleting many files).
-- Pass `--graph resbot-workspace/<slug>/graphify-out/graph.json` to the commands below.
-- Query instead of re-reading files:
-  - `graphify query "<question>"`: e.g. "which cells define the CV folds"
-  - `graphify path "<node A>" "<node B>"`: e.g. how a hypothesis links to an experiment
-  - `graphify explain "<node>"`
+| Need | Command |
+|---|---|
+| Build / refresh | `node "$G" build "$W"`: writes `graph/graph.json` and the summary `graph/GRAPH.md` |
+| Ask a question | `node "$G" query "$W" "which cell defines the folds"` |
+| How two things connect | `node "$G" path "$W" E3 H1` |
+| Everything about one node | `node "$G" explain "$W" cell:07` |
 
-Use the graph to answer "what depends on what" and "what did we already try"; never to replace
-`state.md` / `cell_tree.md` as the source of truth.
+Names can be ids (`cell:07`, `7`, `H2`, `E3`, `paper:1512.03385`) or words from a label.
+Exit code 3 = ambiguous name (candidates are listed, pick one); 4 = no match.
+
+## What is in it
+
+- **Nodes:** cells (from `cell_tree.md` + `cells/*.py`), hypotheses, experiments, papers
+  (`literature.md` + `papers/`), ideas.
+- **Edges:** `needs` (cell uses a name an earlier cell defines), `ran_in` (experiment → cell),
+  `tests` (experiment → hypothesis), `mentions` (text names H#/E#/cell #), `cites` (text names a paper id).
+
+## Rules
+
+- Read `graph/GRAPH.md` (short) instead of opening many files.
+- The graph is a map, not the source of truth: `state.md` and `cell_tree.md` win if they disagree. Rebuild after editing them.
+- Re-run dependency chains (Resume §5) with `path`/`explain` on the next cell's `needs`.

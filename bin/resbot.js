@@ -9,6 +9,7 @@ const { spawnSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
 const PKG = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
 const TEMPLATES = path.join(ROOT, 'resbot', 'skills', 'ch7', 'templates');
+const graph = require(path.join(ROOT, 'resbot', 'skills', 'ch7', 'scripts', 'graph.js'));
 const REPO = 'Bujjinga/Resbot';
 const PLUGIN_ID = 'resbot@resbot-local';
 const IS_WIN = process.platform === 'win32';
@@ -231,9 +232,8 @@ async function doctor() {
   line(nodeMajor >= 18, `Node ${process.versions.node}`, 'install Node 18+ (https://nodejs.org)');
   const py = [IS_WIN ? 'python' : 'python3', 'python3', 'py'].map((c) => has(c)).find((r) => r.ok);
   const pv = py ? (py.out || py.err).match(/(\d+)\.(\d+)/) : null;
-  line(!!pv && (+pv[1] > 3 || (+pv[1] === 3 && +pv[2] >= 10)), `Python ${pv ? pv[0] : 'not found'} (3.10+ for kaggle/graphify)`, 'install Python 3.10+ (https://www.python.org)', true);
+  line(!!pv && (+pv[1] > 3 || (+pv[1] === 3 && +pv[2] >= 10)), `Python ${pv ? pv[0] : 'not found'} (3.10+ for the Kaggle CLI)`, 'install Python 3.10+ (https://www.python.org)', true);
   line(has('git').ok, 'git', 'install git (https://git-scm.com)', true);
-  line(has('graphify').ok, 'graphify (optional)', 'resbot graphify', true);
   const kg = has(KAGGLE);
   line(kg.ok, `kaggle CLI ${kg.ok ? kg.out : 'not found'} (optional)`, 'pip install kaggle', true);
   const cfg = env.KAGGLE_CONFIG_DIR || path.join(os.homedir(), '.kaggle');
@@ -314,7 +314,7 @@ function exportWs(args) {
   const files = [];
   const walk = (d) => fs.readdirSync(d).sort().forEach((f) => {
     const p = path.join(d, f);
-    if (fs.statSync(p).isDirectory()) { if (f !== 'graphify-out' && f !== 'remote') walk(p); } else if (/\.(md|py|csv|bib)$/.test(f)) files.push(p);
+    if (fs.statSync(p).isDirectory()) { if (f !== 'remote') walk(p); } else if (/\.(md|py|csv|bib)$/.test(f)) files.push(p);
   });
   walk(dir);
   const order = (p) => ['state.md', 'config.md', 'cell_tree.md'].indexOf(path.basename(p)) + 1 || 9;
@@ -367,8 +367,7 @@ Setup
   install                     add marketplace + install ${PLUGIN_ID}, link resbot, completions
   update                      pull the latest version and update the plugin
   uninstall [--purge]         remove plugin, marketplace, link, completions (--purge: also ~/.resbot)
-  doctor                      check Claude Code, plugin, Node, Python, git, graphify, kaggle, network
-  graphify                    install graphify and run graphify install
+  doctor                      check Claude Code, plugin, Node, Python, git, kaggle, network
   version | help
 
 Claude Code (starts claude --chrome with /resbot:ch7)
@@ -382,6 +381,7 @@ Workspace (no Claude needed)
   log [slug] | ideas [slug] | status [slug]
   compare <slug> <exp-a> <exp-b>        Welch t-test from experiments.md
   export [slug] [--zip]                 single markdown bundle, or a zip
+  graph build|query|path|explain [args] [--slug s]   workspace knowledge graph
 
 Kaggle CLI wrappers
   pull <owner/kernel> | output <owner/kernel> | lb <competition>
@@ -409,10 +409,14 @@ async function main(argv) {
       break;
     }
     case 'doctor': await doctor(); break;
-    case 'graphify': {
-      // graphify is published on PyPI as "graphifyy" (the name "graphify" is not on PyPI).
-      if (!run(IS_WIN ? 'pip' : 'pip3', ['install', 'graphifyy'], { inherit: true }).ok) die('installing graphify with pip failed');
-      process.exitCode = run('graphify', ['install'], { inherit: true }).code || 0;
+    case 'graph': {
+      const si = args.indexOf('--slug');
+      const slug = pickSlug(si >= 0 ? args.splice(si, 2)[1] : undefined);
+      const [sub = 'build', ...rest] = args;
+      try { console.log(graph.cli([sub, wsPath(slug), ...rest])); } catch (e) {
+        if (!(e instanceof graph.GraphError)) throw e;
+        console.error(e.message); process.exitCode = e.code;
+      }
       break;
     }
     case 'new': {

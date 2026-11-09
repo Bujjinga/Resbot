@@ -158,3 +158,27 @@ test('open and research pass the right /resbot:ch7 args to claude --chrome', asy
   assert.match(fs.readFileSync(log, 'utf8'), /\/resbot:ch7 research best augmentations/);
   assert.equal((await cli(['open', 'https://example.com/x'], { RESBOT_CLAUDE_BIN: shim })).code, 2);
 });
+
+test('graph build, query, path and explain work on a workspace', async () => {
+  const w = path.join(WS, 'gdemo');
+  await cli(['new', 'gdemo']);
+  fs.writeFileSync(path.join(w, 'cell_tree.md'), '| # | type | purpose | defines | needs | status | key result |\n|---|---|---|---|---|---|---|\n| 1 | setup | imports and seeds | | | ok | |\n| 2 | feature | 5-fold split | folds | | ok | |\n| 3 | train | gradient boosting | | folds | stale | acc 0.84 |\n');
+  fs.writeFileSync(path.join(w, 'cells', 'cell_01.py'), 'import numpy as np\nSEED = 42\n');
+  fs.writeFileSync(path.join(w, 'cells', 'cell_02.py'), 'folds = make_folds(SEED)\n');
+  fs.appendFileSync(path.join(w, 'notes', 'hypotheses.md'), '| H1 | boosting beats linear | E1 vs E0 | +3 | open | |\n');
+  fs.appendFileSync(path.join(w, 'notes', 'experiments.md'), '| E1 | 3 | H1 | gradient boosting | 3 | 0.84 ± 0.01 | | | | | |\n');
+  const b = await cli(['graph', 'build', '--slug', 'gdemo']);
+  assert.equal(b.code, 0, b.err);
+  const g = JSON.parse(fs.readFileSync(path.join(w, 'graph', 'graph.json'), 'utf8'));
+  const has = (from, to, rel) => g.edges.some((e) => e.from === from && e.to === to && e.rel === rel);
+  assert.ok(has('cell:02', 'cell:01', 'needs'), 'SEED dependency from code');
+  assert.ok(has('cell:03', 'cell:02', 'needs'), 'folds dependency from cell_tree');
+  assert.ok(has('exp:E1', 'cell:03', 'ran_in'));
+  assert.ok(has('exp:E1', 'hyp:H1', 'tests'));
+  assert.match(fs.readFileSync(path.join(w, 'graph', 'GRAPH.md'), 'utf8'), /cell:03 \[stale\]/);
+  assert.match((await cli(['graph', 'query', 'which cell defines the folds', '--slug', 'gdemo'])).out, /^cell:02: 5-fold split/);
+  assert.match((await cli(['graph', 'path', 'E1', 'cell:01', '--slug', 'gdemo'])).out, /exp:E1[\s\S]*cell:03[\s\S]*cell:02[\s\S]*cell:01/);
+  assert.match((await cli(['graph', 'explain', 'H1', '--slug', 'gdemo'])).out, /← tests exp:E1/);
+  assert.equal((await cli(['graph', 'explain', 'boosting', '--slug', 'gdemo'])).code, 3);
+  assert.equal((await cli(['graph', 'explain', 'zzz', '--slug', 'gdemo'])).code, 4);
+});

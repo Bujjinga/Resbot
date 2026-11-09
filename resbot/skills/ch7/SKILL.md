@@ -3,7 +3,7 @@ description: Kaggle notebook research partner. Drives a kaggle.com notebook thro
 argument-hint: "[kaggle-url] [goal] | research <question> | paper <arxiv-id|doi|pdf> | plot <cell#> | ablate <cell#> | compare <exp-a> <exp-b> | report | graph | status"
 disable-model-invocation: true
 effort: high
-allowed-tools: mcp__claude-in-chrome Read Write Edit Glob Grep WebSearch WebFetch Bash(mkdir *) Bash(sleep *) Bash(graphify *) Bash(python3 *) Bash(kaggle *) mcp__claude_ai_Consensus__search
+allowed-tools: mcp__claude-in-chrome Read Write Edit Glob Grep WebSearch WebFetch Bash(mkdir *) Bash(sleep *) Bash(node *) Bash(python3 *) Bash(kaggle *) mcp__claude_ai_Consensus__search
 ---
 
 # RESBOT: Kaggle research partner (/resbot:ch7)
@@ -23,7 +23,7 @@ Arguments: `$ARGUMENTS`
 | `ablate <n>` | One-factor-at-a-time ablation of experiment n | [experiments.md](experiments.md) §Ablate |
 | `compare <a> <b>` | Significance test between two experiments | [experiments.md](experiments.md) §Compare |
 | `report` | Build `notes/report.md`, `results.csv`, `references.bib` | [report.md](report.md) |
-| `graph` | Rebuild / query the graphify graph | [graph.md](graph.md) |
+| `graph` | Build / query the workspace knowledge graph | [graph.md](graph.md) |
 | `status` | Goal, active hypothesis, best result ± std, next cell. **No browser calls.** | `state.md` only |
 
 Read only the sub-file(s) the mode needs. Always obey [token-rules.md](token-rules.md).
@@ -92,7 +92,7 @@ check leakage, split bugs, duplicates across folds, metric bugs.
 Short updates: one line per cell (`cell 07 ok: val AUC 0.912 ± 0.004 (3 seeds), H2 supported`).
 Put details in the workspace files, not in chat.
 
-## 8. Optional graph
+## 8. Graph
 
-If `graphify --version` works, follow [graph.md](graph.md) (rebuild every ~10 cells and after
-research passes; prefer `graphify query/path/explain` over re-reading files). Otherwise use Grep.
+Follow [graph.md](graph.md): rebuild the built-in workspace graph every ~10 cells and after research
+passes; prefer its `query/path/explain` over re-reading files.

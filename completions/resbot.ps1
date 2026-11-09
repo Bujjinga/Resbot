@@ -1,7 +1,7 @@
 # PowerShell completion for resbot
 Register-ArgumentCompleter -Native -CommandName resbot -ScriptBlock {
   param($wordToComplete, $commandAst, $cursorPosition)
-  $cmds = 'install','update','uninstall','doctor','graphify','version','help','new','open','research','report','paper','log','ideas','status','compare','export','pull','output','lb','watch','completions'
+  $cmds = 'install','update','uninstall','doctor','graph','version','help','new','open','research','report','paper','log','ideas','status','compare','export','pull','output','lb','watch','completions'
   $words = $commandAst.CommandElements | ForEach-Object { $_.ToString() }
   if ($words.Count -le 1 -or ($words.Count -eq 2 -and $wordToComplete)) {
     $list = $cmds
