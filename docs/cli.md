@@ -14,7 +14,7 @@ Run `resbot help` for a short version of this page.
 | `resbot uninstall` | removes the plugin, the PATH link and completions. Your workspaces are kept. |
 | `resbot uninstall --purge` | also deletes `~/.resbot` and the update-check cache |
 | `resbot doctor` | checks everything RESBOT needs and prints a fix for each problem |
-| `resbot graphify` | installs graphify (`pip install graphifyy && graphify install`) |
+| `resbot graphify` | installs [graphify](https://github.com/Graphify-Labs/graphify) and runs `graphify install` |
 | `resbot version` | prints the version |
 
 ## Starting sessions

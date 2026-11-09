@@ -49,7 +49,7 @@ Author and maintainer: **Bujjinga**. License: MIT.
 - Node.js 18+ (for the `resbot` CLI and installers)
 - A kaggle.com account, signed in in that Chrome profile
 - Optional: Python 3.10+, `git`, the [Kaggle CLI](https://github.com/Kaggle/kaggle-api) with an API token,
-  [graphify](https://pypi.org/project/graphifyy/), a Consensus MCP connection
+  [graphify](https://github.com/Graphify-Labs/graphify), a Consensus MCP connection
 
 Run `resbot doctor` to check all of it.
 
@@ -162,7 +162,7 @@ resbot watch <owner>/<kernel> --every 5m   # notify when a committed run finishe
 |---|---|
 | `install` · `update` · `uninstall [--purge]` · `version` · `help` | setup |
 | `doctor` | checks Claude Code, the plugin, Node, Python 3.10+, git, graphify, Kaggle CLI + token (never printed), Consensus MCP, network reachability of Semantic Scholar / arXiv / Kaggle |
-| `graphify` | `pip install graphifyy && graphify install` |
+| `graphify` | installs [graphify](https://github.com/Graphify-Labs/graphify) and runs `graphify install` |
 | `new <slug>` | create `resbot-workspace/<slug>` from templates |
 | `open <kaggle-url> [goal]` · `research "<q>"` · `report [slug]` | start Claude Code with Chrome and the right `/resbot:ch7` args |
 | `paper <arxiv-id\|doi\|pdf> [--slug s]` | fetch metadata into `papers/`, append BibTeX (no Claude needed) |

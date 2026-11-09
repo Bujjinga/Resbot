@@ -368,7 +368,7 @@ Setup
   update                      pull the latest version and update the plugin
   uninstall [--purge]         remove plugin, marketplace, link, completions (--purge: also ~/.resbot)
   doctor                      check Claude Code, plugin, Node, Python, git, graphify, kaggle, network
-  graphify                    pip install graphifyy && graphify install
+  graphify                    install graphify and run graphify install
   version | help
 
 Claude Code (starts claude --chrome with /resbot:ch7)
@@ -410,7 +410,8 @@ async function main(argv) {
     }
     case 'doctor': await doctor(); break;
     case 'graphify': {
-      if (!run(IS_WIN ? 'pip' : 'pip3', ['install', 'graphifyy'], { inherit: true }).ok) die('pip install graphifyy failed');
+      // graphify is published on PyPI as "graphifyy" (the name "graphify" is not on PyPI).
+      if (!run(IS_WIN ? 'pip' : 'pip3', ['install', 'graphifyy'], { inherit: true }).ok) die('installing graphify with pip failed');
       process.exitCode = run('graphify', ['install'], { inherit: true }).code || 0;
       break;
     }
