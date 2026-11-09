@@ -1,12 +1,12 @@
 {
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Agentic Kaggle research partner plugin and CLI for Claude Code",
     "homepage": "https://github.com/Bujjinga/Resbot",
     "license": "MIT",
     "suggest": { "Node.js": "nodejs-lts" },
-    "url": "https://github.com/Bujjinga/Resbot/archive/refs/tags/v0.1.0.zip",
+    "url": "https://github.com/Bujjinga/Resbot/archive/refs/tags/v0.2.0.zip",
     "hash": "REPLACE_WITH_SHA256_OF_RELEASE_ZIP",
-    "extract_dir": "Resbot-0.1.0",
+    "extract_dir": "Resbot-0.2.0",
     "pre_install": "Set-Content -Encoding ASCII \"$dir\\resbot.cmd\" '@node \"%~dp0bin\\resbot.js\" %*'",
     "bin": "resbot.cmd",
     "notes": [

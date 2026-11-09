@@ -2,12 +2,17 @@
 
 All notable changes to RESBOT are documented here. Maintainer: Bujjinga.
 
-## [Unreleased]
+## [0.2.0] - 2026-11-09
 
 ### Added
 - Built-in workspace knowledge graph: `resbot graph build|query|path|explain` and `/resbot:ch7 graph`,
   no extra install. Replaces the optional external graph tool integration.
 - User guides in `docs/` (getting started, usage, CLI reference, troubleshooting), `CONTRIBUTING.md`, `AUTHORS`, `CODEOWNERS`.
+- README reorganized with separate install, update and uninstall sections for macOS, Linux and Windows.
+
+### Fixed
+- Windows installer: Node version check failed on Windows PowerShell 5.1.
+- Shell scripts pass shellcheck.
 
 ## [0.1.0] - 2026-11-09
 

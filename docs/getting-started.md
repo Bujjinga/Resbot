@@ -22,43 +22,49 @@ Optional, but useful:
 
 ## Step 2: Install RESBOT
 
-Pick **one** method.
+Follow the section for your computer.
 
-**macOS / Linux / WSL**
+### macOS
 
 ```bash
+brew install node            # skip if `node --version` shows 18+
 curl -fsSL https://raw.githubusercontent.com/Bujjinga/Resbot/main/install.sh | bash
 ```
 
-**Windows (PowerShell)**
+### Linux (Ubuntu, Debian, Fedora, Arch, WSL)
+
+```bash
+# Node 18+ if you don't have it (Ubuntu/Debian shown; Fedora: sudo dnf install nodejs)
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs
+curl -fsSL https://raw.githubusercontent.com/Bujjinga/Resbot/main/install.sh | bash
+```
+
+### Windows (PowerShell)
 
 ```powershell
+winget install OpenJS.NodeJS.LTS      # skip if `node --version` shows 18+
 irm https://raw.githubusercontent.com/Bujjinga/Resbot/main/install.ps1 | iex
 ```
 
-**npm (any OS)**
+If PowerShell blocks scripts, run `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once and try again.
+
+### Any OS with npm
 
 ```bash
 npm i -g resbot-kaggle
 resbot install
 ```
 
-**From a clone**
+### Plugin only, no terminal
 
-```bash
-git clone https://github.com/Bujjinga/Resbot
-cd Resbot
-./install.sh          # Windows: .\install.ps1
-```
-
-**Without a terminal (plugin only, no `resbot` command)**: type these inside Claude Code:
+Type these inside Claude Code (you get `/resbot:ch7` but not the `resbot` command):
 
 ```
 /plugin marketplace add Bujjinga/Resbot
 /plugin install resbot@resbot-local
 ```
 
-Open a **new terminal** afterwards so `resbot` is on your PATH.
+Afterwards, **open a new terminal window** so `resbot` is on your PATH.
 
 ## Step 3: Check your setup
 

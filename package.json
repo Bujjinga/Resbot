@@ -1,6 +1,6 @@
 {
   "name": "resbot-kaggle",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "RESBOT: agentic Kaggle research partner for Claude Code. CLI + installer for the resbot@resbot-local plugin.",
   "author": "Bujjinga",
   "license": "MIT",

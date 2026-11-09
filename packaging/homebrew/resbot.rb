@@ -1,11 +1,11 @@
 # Homebrew formula for RESBOT. Publish it in a tap repo (Bujjinga/homebrew-resbot):
 #   brew tap bujjinga/resbot && brew install resbot
 # Fill sha256 for each release:
-#   curl -fsSL https://github.com/Bujjinga/Resbot/archive/refs/tags/v0.1.0.tar.gz | shasum -a 256
+#   curl -fsSL https://github.com/Bujjinga/Resbot/archive/refs/tags/v0.2.0.tar.gz | shasum -a 256
 class Resbot < Formula
   desc "Agentic Kaggle research partner plugin and CLI for Claude Code"
   homepage "https://github.com/Bujjinga/Resbot"
-  url "https://github.com/Bujjinga/Resbot/archive/refs/tags/v0.1.0.tar.gz"
+  url "https://github.com/Bujjinga/Resbot/archive/refs/tags/v0.2.0.tar.gz"
   sha256 "REPLACE_WITH_SHA256_OF_RELEASE_TARBALL"
   license "MIT"
 

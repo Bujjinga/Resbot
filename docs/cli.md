@@ -93,7 +93,7 @@ resbot completions pwsh >> $PROFILE                  # PowerShell
 |---|---|
 | `RESBOT_WORKSPACE` | use a different workspace folder (default `./resbot-workspace`) |
 | `RESBOT_NO_UPDATE_CHECK=1` | turn off the once-a-day update check |
-| `RESBOT_VERSION=<tag>` | installer: install a specific release, e.g. `v0.1.0` |
+| `RESBOT_VERSION=<tag>` | installer: install a specific release, e.g. `v0.2.0` |
 | `RESBOT_HOME=<dir>` | installer: where to put RESBOT (default `~/.resbot`) |
 | `RESBOT_DRY_RUN=1` | Windows installer: show what would happen without changing anything |
 
