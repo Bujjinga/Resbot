@@ -12,6 +12,17 @@ You type one command:
 
 Author and maintainer: **Bujjinga**. License: MIT.
 
+## Documentation
+
+| Guide | For |
+|---|---|
+| [Getting started](docs/getting-started.md) | first-time setup, step by step, through your first session |
+| [Using RESBOT](docs/usage.md) | every `/resbot:ch7` mode, the loop, the workspace files, when it asks you first |
+| [CLI reference](docs/cli.md) | every `resbot` command with examples, environment variables, exit codes |
+| [Troubleshooting](docs/troubleshooting.md) | common problems and fixes |
+| [Contributing](CONTRIBUTING.md) | development setup, tests, project layout, release checklist |
+| [Changelog](CHANGELOG.md) | what changed in each version |
+
 ---
 
 ## What it does
@@ -213,6 +224,10 @@ bin/resbot.js                        CLI (zero dependencies)
 install.sh / install.ps1 / uninstall.sh / uninstall.ps1
 completions/  packaging/  test/  .github/workflows/ci.yml
 ```
+
+## Author
+
+RESBOT is created and maintained by [Bujjinga](https://github.com/Bujjinga). See [AUTHORS](AUTHORS).
 
 ## License
 

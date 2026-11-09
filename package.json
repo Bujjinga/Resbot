@@ -9,7 +9,7 @@
   "bugs": { "url": "https://github.com/Bujjinga/Resbot/issues" },
   "keywords": ["kaggle", "claude-code", "plugin", "research", "notebook", "cli"],
   "bin": { "resbot": "bin/resbot.js" },
-  "files": [".claude-plugin/", "resbot/", "bin/", "completions/", "install.sh", "install.ps1", "uninstall.sh", "uninstall.ps1", "README.md", "CHANGELOG.md", "LICENSE"],
+  "files": [".claude-plugin/", "resbot/", "bin/", "completions/", "install.sh", "install.ps1", "uninstall.sh", "uninstall.ps1", "docs/", "README.md", "CHANGELOG.md", "CONTRIBUTING.md", "AUTHORS", "LICENSE"],
   "engines": { "node": ">=18" },
   "scripts": {
     "test": "node --test",

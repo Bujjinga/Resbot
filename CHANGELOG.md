@@ -2,6 +2,11 @@
 
 All notable changes to RESBOT are documented here. Maintainer: Bujjinga.
 
+## [Unreleased]
+
+### Added
+- User guides in `docs/` (getting started, usage, CLI reference, troubleshooting), `CONTRIBUTING.md`, `AUTHORS`, `CODEOWNERS`.
+
 ## [0.1.0] - 2026-11-09
 
 ### Added
