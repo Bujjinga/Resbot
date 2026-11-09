@@ -1,0 +1,14 @@
+{
+  "name": "resbot-local",
+  "owner": { "name": "Bujjinga" },
+  "metadata": { "description": "RESBOT: agentic Kaggle research partner for Claude Code." },
+  "plugins": [
+    {
+      "name": "resbot",
+      "source": "./resbot",
+      "description": "Agentic Kaggle notebook research partner: one-cell loop in Chrome, Kaggle CLI, literature-guided experiments.",
+      "version": "0.1.0",
+      "author": { "name": "Bujjinga" }
+    }
+  ]
+}

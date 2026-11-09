@@ -1,0 +1,52 @@
+name: ci
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: JSON manifests parse
+        run: |
+          for f in .claude-plugin/marketplace.json resbot/.claude-plugin/plugin.json package.json packaging/scoop/resbot.json .claude/settings.json; do
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" && echo "ok $f"
+          done
+      - name: claude plugin validate (if available)
+        run: |
+          npm i -g @anthropic-ai/claude-code >/dev/null 2>&1 || true
+          if command -v claude >/dev/null 2>&1 && claude plugin validate --help >/dev/null 2>&1; then
+            claude plugin validate resbot
+            claude plugin validate .
+          else
+            echo "claude CLI not available; skipped"
+          fi
+      - name: shellcheck
+        run: shellcheck install.sh uninstall.sh test/install.test.sh completions/resbot.bash
+
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [22]
+        include:
+          - { os: ubuntu-latest, node: 18 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '${{ matrix.node }}' }
+      - run: npm test
+      - name: installer test (bash)
+        if: runner.os != 'Windows'
+        run: bash test/install.test.sh
+      - name: installer test (PowerShell)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./test/install.test.ps1

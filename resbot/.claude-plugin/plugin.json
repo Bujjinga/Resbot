@@ -1,0 +1,10 @@
+{
+  "name": "resbot",
+  "version": "0.1.0",
+  "description": "Agentic Kaggle notebook research partner: drives kaggle.com notebooks one cell at a time through Claude in Chrome, uses the Kaggle CLI for headless tasks, and runs read-only literature research to guide experiments.",
+  "author": { "name": "Bujjinga", "url": "https://github.com/Bujjinga" },
+  "license": "MIT",
+  "homepage": "https://github.com/Bujjinga/Resbot",
+  "repository": "https://github.com/Bujjinga/Resbot",
+  "keywords": ["kaggle", "research", "notebook", "chrome", "ml"]
+}

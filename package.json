@@ -1,0 +1,18 @@
+{
+  "name": "resbot-kaggle",
+  "version": "0.1.0",
+  "description": "RESBOT: agentic Kaggle research partner for Claude Code. CLI + installer for the resbot@resbot-local plugin.",
+  "author": "Bujjinga",
+  "license": "MIT",
+  "homepage": "https://github.com/Bujjinga/Resbot",
+  "repository": { "type": "git", "url": "git+https://github.com/Bujjinga/Resbot.git" },
+  "bugs": { "url": "https://github.com/Bujjinga/Resbot/issues" },
+  "keywords": ["kaggle", "claude-code", "plugin", "research", "notebook", "cli"],
+  "bin": { "resbot": "bin/resbot.js" },
+  "files": [".claude-plugin/", "resbot/", "bin/", "completions/", "install.sh", "install.ps1", "uninstall.sh", "uninstall.ps1", "README.md", "CHANGELOG.md", "LICENSE"],
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "node --test",
+    "test:install": "bash test/install.test.sh"
+  }
+}

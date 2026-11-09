@@ -1,0 +1,44 @@
+#compdef resbot
+# zsh completion for resbot
+_resbot() {
+  local -a cmds
+  cmds=(
+    'install:install the plugin, link resbot, completions'
+    'update:update to the latest version'
+    'uninstall:remove the plugin (--purge also removes ~/.resbot)'
+    'doctor:check the environment'
+    'graphify:install graphify'
+    'version:print version'
+    'help:show help'
+    'new:create a workspace'
+    'open:start a session on a Kaggle notebook'
+    'research:literature and Kaggle community search'
+    'report:build the report'
+    'paper:fetch paper metadata and BibTeX'
+    'log:show experiments'
+    'ideas:show ranked ideas'
+    'status:show state'
+    'compare:Welch t-test between two experiments'
+    'export:export a workspace'
+    'pull:kaggle kernels pull'
+    'output:kaggle kernels output'
+    'lb:competition leaderboard'
+    'watch:notify when a kernel run finishes'
+    'completions:print shell completions'
+  )
+  local -a slugs
+  slugs=(${(f)"$(ls resbot-workspace 2>/dev/null)"})
+  if (( CURRENT == 2 )); then
+    _describe 'command' cmds
+    return
+  fi
+  case $words[2] in
+    completions) _values 'shell' bash zsh pwsh ;;
+    uninstall) _values 'flag' --purge ;;
+    export) _values 'option' --zip $slugs ;;
+    report|log|ideas|status|compare) (( ${#slugs} )) && _values 'slug' $slugs ;;
+    watch) _values 'option' --every ;;
+    paper) _files -g '*.pdf' ;;
+  esac
+}
+_resbot "$@"
